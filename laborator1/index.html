@@ -1,197 +1,193 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documente</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laborator 1 - Probleme dinamic</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .problem {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+    .buttons button {
+      margin-right: 10px;
+      padding: 5px 10px;
+      border: none;
+      background-color: #0366d6;
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .buttons button:hover {
+      background-color: #024f9c;
+    }
+    .toggle-content {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      display: none;
+    }
+    .toggle-content a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    .toggle-content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+  <script>
+    // Actualizează configurarea: Repository-ul este "programare-vizuala" și directorul țintă este "laborator1"
+    const REPO_OWNER = 'chiril-covali';
+    const REPO_NAME = 'programare-vizuala';
+    const TARGET_FOLDER = 'laborator1';
+    // URL-ul GitHub Pages folosit pentru a construi link-urile către fișiere
+    const GITHUB_PAGES_URL = `https://${REPO_OWNER}.github.io/${REPO_NAME}`;
+
+    // Funcție pentru a obține o iconiță bazată pe extensia fișierului
+    function getFileIcon(filename) {
+      const extension = filename.split('.').pop().toLowerCase();
+      const icons = {
+        'py': '👨‍💻',
+        'png': '🖼️',
+        'default': '📄'
+      };
+      return icons[extension] || icons.default;
+    }
+
+    // Funcție pentru a schimba vizibilitatea unui element
+    function toggleContent(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
+
+    // Funcție pentru a prelua conținutul unui folder din repository utilizând API-ul GitHub
+    async function fetchFolderContents(url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Eroare HTTP: ${response.status}`);
+        return response.json();
+      } catch (err) {
+        console.error('Fetch error:', err);
+        return [];
+      }
+    }
+
+    // Funcția principală: listează problemele din folderul TARGET_FOLDER
+    async function listProblems() {
+      const problemsContainer = document.getElementById('problemsContainer');
+      // URL-ul API pentru folderul "laborator1" din repository
+      const targetFolderUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TARGET_FOLDER}`;
+      const folders = await fetchFolderContents(targetFolderUrl);
+
+      // Filtrăm doar directoarele care au nume numerice (presupunem că acestea reprezintă problemele)
+      const problemFolders = folders.filter(item => item.type === 'dir' && !isNaN(item.name));
+
+      // Sortează folderele numeric pentru ordinea corectă
+      problemFolders.sort((a, b) => Number(a.name) - Number(b.name));
+
+      // Pentru fiecare folder de problemă se extrag fișierele din interior
+      for (const folder of problemFolders) {
+        const folderContents = await fetchFolderContents(folder.url);
+        // Căutăm fișierele cu extensia .py și .png
+        const codeFile = folderContents.find(item => item.name.toLowerCase().endsWith('.py'));
+        const imageFile = folderContents.find(item => item.name.toLowerCase().endsWith('.png'));
+        // Afișăm blocul problemei doar dacă există cel puțin un fișier de cod sau imagine
+        if (!codeFile && !imageFile) continue;
+
+        // Creăm containerul pentru problema curentă
+        const problemDiv = document.createElement('div');
+        problemDiv.className = 'problem';
+        problemDiv.id = `problem${folder.name}`;
+
+        // Titlul problemei – folosim numărul folderului
+        const heading = document.createElement('h2');
+        heading.textContent = `Problema ${folder.name}`;
+        problemDiv.appendChild(heading);
+
+        // Enunțul problemei: se poate adapta, aici apare un text generic
+        const conditionPara = document.createElement('p');
+        conditionPara.textContent = "Condiția problemei este definită în interiorul folderului. Verifică codul sursă pentru detalii.";
+        problemDiv.appendChild(conditionPara);
+
+        // Secțiunea pentru butoane
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.className = 'buttons';
+        // Butonul pentru fișierul de cod dacă acesta există
+        if (codeFile) {
+          const codeBtn = document.createElement('button');
+          codeBtn.textContent = "Arată codul sursă " + getFileIcon(codeFile.name);
+          const codeDivId = `code${folder.name}`;
+          codeBtn.onclick = () => toggleContent(codeDivId);
+          buttonsDiv.appendChild(codeBtn);
+        }
+        // Butonul pentru fișierul de imagine dacă acesta există
+        if (imageFile) {
+          const imgBtn = document.createElement('button');
+          imgBtn.textContent = "Arată imaginea " + getFileIcon(imageFile.name);
+          const imgDivId = `img${folder.name}`;
+          imgBtn.onclick = () => toggleContent(imgDivId);
+          buttonsDiv.appendChild(imgBtn);
+        }
+        problemDiv.appendChild(buttonsDiv);
+
+        // Div-ul pentru fișierul de cod
+        if (codeFile) {
+          const codeDiv = document.createElement('div');
+          codeDiv.className = 'toggle-content';
+          codeDiv.id = `code${folder.name}`;
+          const codeLink = document.createElement('a');
+          // Construim link-ul pentru GitHub Pages: laborator1/<număr folder>/<nume fișier>
+          codeLink.href = `${GITHUB_PAGES_URL}/${TARGET_FOLDER}/${folder.name}/${encodeURIComponent(codeFile.name)}`;
+          codeLink.textContent = `Deschide ${folder.name}/${codeFile.name}`;
+          codeLink.target = "_blank";
+          codeDiv.appendChild(codeLink);
+          problemDiv.appendChild(codeDiv);
+        }
+        // Div-ul pentru imagine
+        if (imageFile) {
+          const imgDiv = document.createElement('div');
+          imgDiv.className = 'toggle-content';
+          imgDiv.id = `img${folder.name}`;
+          const imgElem = document.createElement('img');
+          imgElem.src = `${GITHUB_PAGES_URL}/${TARGET_FOLDER}/${folder.name}/${encodeURIComponent(imageFile.name)}`;
+          imgElem.alt = `Imagine Problema ${folder.name}`;
+          imgDiv.appendChild(imgElem);
+          problemDiv.appendChild(imgDiv);
         }
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        // Adăugăm containerul problemei în containerul principal
+        problemsContainer.appendChild(problemDiv);
+      }
+    }
 
-        h1 {
-            color: #24292e;
-            margin-bottom: 20px;
-        }
-
-        .info {
-            color: #586069;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f6f8fa;
-            border-radius: 4px;
-        }
-
-        .file-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .file-item {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f6f8fa;
-            border: 1px solid #e1e4e8;
-            border-radius: 4px;
-            transition: transform 0.2s;
-        }
-
-        .file-item:hover {
-            transform: translateX(5px);
-            background-color: #f1f8ff;
-        }
-
-        .file-link {
-            color: #0366d6;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .file-icon {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-
-        .error-message {
-            color: #cb2431;
-            padding: 10px;
-            background-color: #ffeef0;
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #586069;
-        }
-    </style>
+    document.addEventListener('DOMContentLoaded', listProblems);
+  </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Documente</h1>
-        <div class="info">
-            <p>
-                <a href="https://github.com/chiril-covali" style="color: #0366d6; text-decoration: none;" target="_blank">Chiril Covali</a>
-            </p>
-        </div>
-        <div id="fileList" class="file-list">
-            <div class="loading">Se încarcă fișierele...</div>
-        </div>
-    </div>
-
-    <script>
-        const REPO_OWNER = 'chiril-covali';
-        const REPO_NAME = 'PAWG';
-        // URL de GitHub Pages pentru repository
-        const GITHUB_PAGES_URL = `https://${REPO_OWNER}.github.io/${REPO_NAME}`;
-        // Numele folderului de documente pe care-l căutăm în repository
-        const TARGET_FOLDER = 'laborator1';
-
-        function getFileIcon(filename) {
-            const extension = filename.split('.').pop().toLowerCase();
-            const icons = {
-                'html': '📄',
-                'css': '🎨',
-                'js': '📜',
-                'md': '📝',
-                'pdf': '📕',
-                'txt': '📝',
-                'doc': '📄',
-                'docx': '📄',
-                'default': '📄'
-            };
-            return icons[extension] || icons.default;
-        }
-
-        async function listFiles() {
-            const fileList = document.getElementById('fileList');
-            try {
-                // Obținem conținutul repository-ului
-                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const contents = await response.json();
-
-                // Căutăm folderul "documente"
-                const targetFolder = contents.find(item => 
-                    item.type === 'dir' && item.name.toLowerCase() === TARGET_FOLDER.toLowerCase()
-                );
-
-                if (!targetFolder) {
-                    throw new Error(`Folderul "${TARGET_FOLDER}" nu a fost găsit în repository`);
-                }
-
-                // Obținem conținutul folderului "documente"
-                const folderResponse = await fetch(targetFolder.url);
-                
-                if (!folderResponse.ok) {
-                    throw new Error(`HTTP error! status: ${folderResponse.status}`);
-                }
-
-                const folderContents = await folderResponse.json();
-
-                // Dacă nu există fișiere de afișat
-                if (!Array.isArray(folderContents) || folderContents.length === 0) {
-                    fileList.innerHTML = '<div class="info">Nu există fișiere în folderul documente.</div>';
-                    return;
-                }
-
-                // Sortăm fișierele
-                const sortedFiles = [...folderContents].sort((a, b) => 
-                    a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'})
-                );
-
-                // Generăm HTML-ul pentru fișiere cu link-uri către GitHub Pages
-                const fileListHTML = sortedFiles
-                    .map(file => `
-                        <li class="file-item">
-                            <a href="${GITHUB_PAGES_URL}/${TARGET_FOLDER}/${encodeURIComponent(file.name)}" 
-                               class="file-link" 
-                               target="_blank">
-                                <span class="file-icon">${getFileIcon(file.name)}</span>
-                                ${file.name}
-                            </a>
-                        </li>
-                    `)
-                    .join('');
-
-                fileList.innerHTML = `<ul class="file-list">${fileListHTML}</ul>`;
-
-            } catch (error) {
-                console.error('Eroare:', error);
-                fileList.innerHTML = `
-                    <div class="error-message">
-                        <p>Eroare la încărcarea fișierelor: ${error.message}</p>
-                        <p>Vă rugăm să verificați:</p>
-                        <ul>
-                            <li>Repository-ul este public</li>
-                            <li>Folderul "${TARGET_FOLDER}" există în repository</li>
-                            <li>Aveți conexiune la internet</li>
-                        </ul>
-                    </div>
-                `;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', listFiles);
-    </script>
+  <h1>Laborator 1 - Probleme</h1>
+  <div id="problemsContainer">
+    <p>Se încarcă problemele...</p>
+  </div>
 </body>
 </html>
