@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Laborator 1 - Probleme</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .problem {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+    .toggle-content {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f7f7f7;
+      border: 1px solid #ddd;
+      display: none;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+    h1, h2 {
+      color: #333;
+    }
+  </style>
+  <script>
+    function toggleContent(id) {
+      var el = document.getElementById(id);
+      if (el.style.display === "none" || el.style.display === "") {
+        el.style.display = "block";
+      } else {
+        el.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Laborator 1</h1>
+
+  <div class="problem" id="problem1">
+    <h2>1. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați interfața grafică a unei aplicații care va conține două butoane de comandă și o etichetă. 
+      În urma executării unui click pe primul buton se va afișa o linie de introducere a datelor. Textul scris de utilizator va fi afișat în etichetă. După executarea unui click pe al doilea buton textul etichetei va fi șters.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code1')">Arată codul sursă</button>
+      <button onclick="toggleContent('img1')">Arată imaginea</button>
+    </div>
+    <div id="code1" class="toggle-content">
+      <a href="laborator1/program1.py" target="_blank">Deschide laborator1/program1.py</a>
+    </div>
+    <div id="img1" class="toggle-content">
+      <img src="laborator1/program1.png" alt="Imagine Program 1">
+    </div>
+  </div>
+
+  <div class="problem" id="problem2">
+    <h2>2. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine un buton de comandă şi o etichetă. După executarea unui click pe buton va apărea o fereastră de introducere a datelor în care utilizatorul va scrie un cuvînt. Aplicația va afişa cu ajutorul etichetei numărul de consoane şi numărul de vocale ale cuvîntului.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code2')">Arată codul sursă</button>
+      <button onclick="toggleContent('img2')">Arată imaginea</button>
+    </div>
+    <div id="code2" class="toggle-content">
+      <a href="laborator1/program2.py" target="_blank">Deschide laborator1/program2.py</a>
+    </div>
+    <div id="img2" class="toggle-content">
+      <img src="laborator1/program2.png" alt="Imagine Program 2">
+    </div>
+  </div>
+
+  <div class="problem" id="problem3">
+    <h2>3. Componentele Entry, Button, Label</h2>
+    <p>
+      Elaborați o aplicație, a cărei fereastră va conține o etichetă şi două butoane de comandă cu titlurile respective "Mai mare", "Mai mic". La executarea unui click pe butonul "Mai mare" textul etichetei se va mări cu 2 puncte, iar butonul "Mai mic" va micşora acest text cu 2 puncte.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code3')">Arată codul sursă</button>
+      <button onclick="toggleContent('img3')">Arată imaginea</button>
+    </div>
+    <div id="code3" class="toggle-content">
+      <a href="laborator1/program3.py" target="_blank">Deschide laborator1/program3.py</a>
+    </div>
+    <div id="img3" class="toggle-content">
+      <img src="laborator1/program3.png" alt="Imagine Program 3">
+    </div>
+  </div>
+
+  <div class="problem" id="problem4">
+    <h2>4. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine o etichetă. La mişcarea mouse-lui pe formă în titlul etichetei se vor afișa coordonatele cursorului în raport cu colțul stânga sus al ferestrei aplicației. 
+      <em>Indicatie: <a href="https://python-forum.io/thread-40274.html" target="_blank">https://python-forum.io/thread-40274.html</a></em>
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code4')">Arată codul sursă</button>
+      <button onclick="toggleContent('img4')">Arată imaginea</button>
+    </div>
+    <div id="code4" class="toggle-content">
+      <a href="laborator1/program4.py" target="_blank">Deschide laborator1/program4.py</a>
+    </div>
+    <div id="img4" class="toggle-content">
+      <img src="laborator1/program4.png" alt="Imagine Program 4">
+    </div>
+  </div>
+
+  <div class="problem" id="problem5">
+    <h2>5. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine două etichete. Prima etichetă va afişa dimensiunile ferestrei aplicației, iar eticheta a doua - informația despre starea butonului stâng al mouse-ului aflat pe formă (apăsat sau ridicat).
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code5')">Arată codul sursă</button>
+      <button onclick="toggleContent('img5')">Arată imaginea</button>
+    </div>
+    <div id="code5" class="toggle-content">
+      <a href="laborator1/program5.py" target="_blank">Deschide laborator1/program5.py</a>
+    </div>
+    <div id="img5" class="toggle-content">
+      <img src="laborator1/program5.png" alt="Imagine Program 5">
+    </div>
+  </div>
+
+  <div class="problem" id="problem6">
+    <h2>6. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine o etichetă. La mişcarea mouse-lui eticheta va afişa informația despre poziția mouse-lui (se află pe formă sau în afara ei).
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code6')">Arată codul sursă</button>
+      <button onclick="toggleContent('img6')">Arată imaginea</button>
+    </div>
+    <div id="code6" class="toggle-content">
+      <a href="laborator1/program6.py" target="_blank">Deschide laborator1/program6.py</a>
+    </div>
+    <div id="img6" class="toggle-content">
+      <img src="laborator1/program6.png" alt="Imagine Program 6">
+    </div>
+  </div>
+
+  <div class="problem" id="problem7">
+    <h2>7. Componentele Entry, Button, Label</h2>
+    <p>
+      Elaborați o aplicație, a cărei fereastră va conține două etichete: una albă, cealaltă roşie. Culorile etichetelor se vor schimba între ele: va fi roşie eticheta cea mai aproape de cursorul de mouse.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code7')">Arată codul sursă</button>
+      <button onclick="toggleContent('img7')">Arată imaginea</button>
+    </div>
+    <div id="code7" class="toggle-content">
+      <a href="laborator1/program7.py" target="_blank">Deschide laborator1/program7.py</a>
+    </div>
+    <div id="img7" class="toggle-content">
+      <img src="laborator1/program7.png" alt="Imagine Program 7">
+    </div>
+  </div>
+
+  <div class="problem" id="problem8">
+    <h2>8. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine trei butoane şi o linie de editare. Butoanele vor simboliza culorile semaforului, iar textul din linie - corespunzător culorii alese (butonului apăsat).
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code8')">Arată codul sursă</button>
+      <button onclick="toggleContent('img8')">Arată imaginea</button>
+    </div>
+    <div id="code8" class="toggle-content">
+      <a href="laborator1/program8.py" target="_blank">Deschide laborator1/program8.py</a>
+    </div>
+    <div id="img8" class="toggle-content">
+      <img src="laborator1/program8.png" alt="Imagine Program 8">
+    </div>
+  </div>
+
+  <div class="problem" id="problem9">
+    <h2>9. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație care va rezolva inecuația de forma ax+b&gt;0, unde a și b sunt numere reale introduse de utilizator prin linii de editare.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code9')">Arată codul sursă</button>
+      <button onclick="toggleContent('img9')">Arată imaginea</button>
+    </div>
+    <div id="code9" class="toggle-content">
+      <a href="laborator1/program9.py" target="_blank">Deschide laborator1/program9.py</a>
+    </div>
+    <div id="img9" class="toggle-content">
+      <img src="laborator1/program9.png" alt="Imagine Program 9">
+    </div>
+  </div>
+
+  <div class="problem" id="problem10">
+    <h2>10. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine un buton de comandă şi o linie de editare. La executarea unui click pe buton literele textului din linie vor deveni mari.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code10')">Arată codul sursă</button>
+      <button onclick="toggleContent('img10')">Arată imaginea</button>
+    </div>
+    <div id="code10" class="toggle-content">
+      <a href="laborator1/program10.py" target="_blank">Deschide laborator1/program10.py</a>
+    </div>
+    <div id="img10" class="toggle-content">
+      <img src="laborator1/program10.png" alt="Imagine Program 10">
+    </div>
+  </div>
+
+  <div class="problem" id="problem11">
+    <h2>11. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine un buton de comandă şi o linie de editare. Utilizatorul va scrie un număr în linie şi la executarea unui click pe buton se va afişa pătratul numărului.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code11')">Arată codul sursă</button>
+      <button onclick="toggleContent('img11')">Arată imaginea</button>
+    </div>
+    <div id="code11" class="toggle-content">
+      <a href="laborator1/program11.py" target="_blank">Deschide laborator1/program11.py</a>
+    </div>
+    <div id="img11" class="toggle-content">
+      <img src="laborator1/program11.png" alt="Imagine Program 11">
+    </div>
+  </div>
+
+  <div class="problem" id="problem12">
+    <h2>12. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine un buton de comandă şi o linie de editare. Utilizatorul va scrie un număr în linie şi la executarea unui click pe buton se va afişa:
+      <br>
+      - ultima cifră a numărului; suma cifrelor numărului;
+      <br>
+      - mesajul „este prim" sau „nu este prim" în funcție de numărul din linie;
+      <br>
+      - cel mai mare divizor propriu prim (dacă există) a numărului.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code12')">Arată codul sursă</button>
+      <button onclick="toggleContent('img12')">Arată imaginea</button>
+    </div>
+    <div id="code12" class="toggle-content">
+      <a href="laborator1/program12.py" target="_blank">Deschide laborator1/program12.py</a>
+    </div>
+    <div id="img12" class="toggle-content">
+      <img src="laborator1/program12.png" alt="Imagine Program 12">
+    </div>
+  </div>
+
+  <div class="problem" id="problem13">
+    <h2>13. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine un buton de comandă şi două casete de editare. După executarea unui click pe buton în caseta a doua de editare va apărea „răsturnatul" textului din prima casetă.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code13')">Arată codul sursă</button>
+      <button onclick="toggleContent('img13')">Arată imaginea</button>
+    </div>
+    <div id="code13" class="toggle-content">
+      <a href="laborator1/program13.py" target="_blank">Deschide laborator1/program13.py</a>
+    </div>
+    <div id="img13" class="toggle-content">
+      <img src="laborator1/program13.png" alt="Imagine Program 13">
+    </div>
+  </div>
+
+  <div class="problem" id="problem14">
+    <h2>14. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine trei butoane de comandă şi o casetă de editare. Dacă se va executa un click pe primul buton, atunci se va afişa într-o fereastră de mesaje textul din casetă. Dacă se va executa un click pe al doilea buton, mesajul din casetă se va şterge. Un click pe al treilea buton va închide aplicația.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code14')">Arată codul sursă</button>
+      <button onclick="toggleContent('img14')">Arată imaginea</button>
+    </div>
+    <div id="code14" class="toggle-content">
+      <a href="laborator1/program14.py" target="_blank">Deschide laborator1/program14.py</a>
+    </div>
+    <div id="img14" class="toggle-content">
+      <img src="laborator1/program14.png" alt="Imagine Program 14">
+    </div>
+  </div>
+
+  <div class="problem" id="problem15">
+    <h2>15. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație, a cărei fereastră va conţine trei butoane de comandă şi o casetă de editare. La executarea unui click pe primul buton în caseta de editare se va afişa textul: „A fost executat un click pe butonul 1”, după executarea unui click pe butonul al doilea se va afişa textul: „A executat un click pe butonul 2”. La executarea unui click pe al treilea buton textul din caseta de editare se va şterge.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code15')">Arată codul sursă</button>
+      <button onclick="toggleContent('img15')">Arată imaginea</button>
+    </div>
+    <div id="code15" class="toggle-content">
+      <a href="laborator1/program15.py" target="_blank">Deschide laborator1/program15.py</a>
+    </div>
+    <div id="img15" class="toggle-content">
+      <img src="laborator1/program15.png" alt="Imagine Program 15">
+    </div>
+  </div>
+
+  <div class="problem" id="problem16">
+    <h2>16. Componentele Entry, Button, Label</h2>
+    <p>
+      Businessmanul Vindetot a importat din Grecia X kg de portocale pe care avea de gînd să le vîndă cu prețul P, lei/kg. 
+      În timpul transportării X1 kg de portocale s-au alterat. Vindetot se gîndeşte: cu câți lei trebuie să mărească prețul portocalelor rămase pentru ca să obţină venitul preconizat? 
+      Creați o aplicație care l-ar ajuta pe Vindetot să afle răspunsul.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code16')">Arată codul sursă</button>
+      <button onclick="toggleContent('img16')">Arată imaginea</button>
+    </div>
+    <div id="code16" class="toggle-content">
+      <a href="laborator1/program16.py" target="_blank">Deschide laborator1/program16.py</a>
+    </div>
+    <div id="img16" class="toggle-content">
+      <img src="laborator1/program16.png" alt="Imagine Program 16">
+    </div>
+  </div>
+
+  <div class="problem" id="problem17">
+    <h2>17. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație care ar evalua o expresie aritmetică, scrisă într-o casetă de text, de forma:
+      <br>
+      a) m1 + m2;
+      <br>
+      b) m1 + m2 + ... + mn;
+      <br>
+      c) m1 ± m2 ± ... ± mn;
+      <br>
+      d) m1 * m2;
+      <br>
+      e) m1 / m2.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code17')">Arată codul sursă</button>
+      <button onclick="toggleContent('img17')">Arată imaginea</button>
+    </div>
+    <div id="code17" class="toggle-content">
+      <a href="laborator1/program17.py" target="_blank">Deschide laborator1/program17.py</a>
+    </div>
+    <div id="img17" class="toggle-content">
+      <img src="laborator1/program17.png" alt="Imagine Program 17">
+    </div>
+  </div>
+
+  <div class="problem" id="problem18">
+    <h2>18. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație care ar evalua o expresie aritmetică fără paranteze, scrisă într-o casetă de text.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code18')">Arată codul sursă</button>
+      <button onclick="toggleContent('img18')">Arată imaginea</button>
+    </div>
+    <div id="code18" class="toggle-content">
+      <a href="laborator1/program18.py" target="_blank">Deschide laborator1/program18.py</a>
+    </div>
+    <div id="img18" class="toggle-content">
+      <img src="laborator1/program18.png" alt="Imagine Program 18">
+    </div>
+  </div>
+
+  <div class="problem" id="problem19">
+    <h2>19. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație care ar evalua o expresie aritmetică cu sau fără paranteze, scrisă într-o casetă de text.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code19')">Arată codul sursă</button>
+      <button onclick="toggleContent('img19')">Arată imaginea</button>
+    </div>
+    <div id="code19" class="toggle-content">
+      <a href="laborator1/program19.py" target="_blank">Deschide laborator1/program19.py</a>
+    </div>
+    <div id="img19" class="toggle-content">
+      <img src="laborator1/program19.png" alt="Imagine Program 19">
+    </div>
+  </div>
+
+  <div class="problem" id="problem20">
+    <h2>20. Componentele Entry, Button, Label</h2>
+    <p>
+      Creați o aplicație care va conține două casete de editare şi un buton de comandă. Utilizatorului va scrie într-o casetă de editare numărul zilei din săptămână (de la 1 la 7) în care a fost 1 ianuarie a unui an, iar cealaltă casetă - numărul de ordine a unei zile (de la 1 la 366) din acel an. Butonul de comandă va afişa numărul de ordine a săptămînii (de la 1 la 53) la care aparține ziua dată.
+    </p>
+    <div class="buttons">
+      <button onclick="toggleContent('code20')">Arată codul sursă</button>
+      <button onclick="toggleContent('img20')">Arată imaginea</button>
+    </div>
+    <div id="code20" class="toggle-content">
+      <a href="laborator1/program20.py" target="_blank">Deschide laborator1/program20.py</a>
+    </div>
+    <div id="img20" class="toggle-content">
+      <img src="laborator1/program20.png" alt="Imagine Program 20">
+    </div>
+  </div>
+
+</body>
+</html>
