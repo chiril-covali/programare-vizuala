@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laborator 1 - Probleme dinamic</title>
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <title>Laborator 1</title>
+  <link rel="icon" type="image/x-icon" href="ico/favicon.ico">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,6 +13,14 @@
     }
     h1, h2 {
       color: #333;
+    }
+    .global-condition {
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     .problem {
       border: 1px solid #ccc;
@@ -109,20 +117,31 @@
       }
     }
     
-    // Funcție pentru a încărca conținutul condițiilor din fișierul markdown
-    async function loadConditionContent(downloadUrl, divId) {
+    // Funcție pentru a încărca conținutul unui fișier markdown
+    async function loadMarkdownContent(downloadUrl, divId) {
       try {
         const response = await fetch(downloadUrl);
-        if (!response.ok) throw new Error(`Nu s-a putut încărca condiția: ${response.status}`);
+        if (!response.ok) throw new Error(`Nu s-a putut încărca fișierul: ${response.status}`);
         const text = await response.text();
-        const conditionDiv = document.getElementById(divId);
-        // Afișează textul în interiorul unui tag <pre> pentru a păstra formatul markdown
-        conditionDiv.innerHTML = `<pre>${text}</pre>`;
+        const contentDiv = document.getElementById(divId);
+        // Afișează textul într-un tag <pre> pentru a păstra formatul markdown
+        contentDiv.innerHTML = `<pre>${text}</pre>`;
       } catch (error) {
-        console.error("Error loading condition:", error);
+        console.error("Error loading markdown:", error);
       }
     }
-    
+
+    // Funcție pentru toggle-ul butonului global "Condiția"
+    async function toggleGlobalCondition() {
+      const globalDiv = document.getElementById('globalCondDiv');
+      if (!globalDiv.dataset.loaded) {
+        // Fișierul .md se află în același folder cu acest index.html (TARGET_FOLDER)
+        await loadMarkdownContent('conditia.md', 'globalCondDiv');
+        globalDiv.dataset.loaded = "true";
+      }
+      toggleContent('globalCondDiv');
+    }
+
     // Funcția principală ce listează problemele din folderul TARGET_FOLDER
     async function listProblems() {
       const problemsContainer = document.getElementById('problemsContainer');
@@ -130,7 +149,7 @@
       const targetFolderUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TARGET_FOLDER}`;
       const folders = await fetchFolderContents(targetFolderUrl);
       
-      // Filtrăm folder-ele care au nume numerice (presupunem că acestea reprezintă problemele)
+      // Filtrăm folderele care au nume numerice (presupunem că acestea reprezintă problemele)
       const problemFolders = folders.filter(item => item.type === 'dir' && !isNaN(item.name));
       // Sortează folderele numeric
       problemFolders.sort((a, b) => Number(a.name) - Number(b.name));
@@ -142,7 +161,7 @@
         // Căutăm fișierele:
         // - Fișierul de cod (presupunem că acesta are extensia .py)
         const codeFile = folderContents.find(item => item.name.toLowerCase().endsWith('.py'));
-        // - Fișierul de condiții (markdown, orice fișier .md)
+        // - Fișierul de condiții (markdown, orice fișier .md) specific problemei
         const conditionFile = folderContents.find(item => item.name.toLowerCase().endsWith('.md'));
         // - Toate imaginile (fișiere .png); poate fi mai mult de unul
         const imageFiles = folderContents.filter(item => item.name.toLowerCase().endsWith('.png'));
@@ -164,16 +183,15 @@
         const buttonsDiv = document.createElement('div');
         buttonsDiv.className = 'buttons';
         
-        // Buton pentru condiții, dacă există fișierul markdown
+        // Buton pentru condiții, dacă există fișierul markdown pentru problemă
         if (conditionFile) {
           const condBtn = document.createElement('button');
-          condBtn.textContent = "Arată condițiile " + getFileIcon(conditionFile.name);
+          condBtn.textContent = "Arată condiția " + getFileIcon(conditionFile.name);
           const condDivId = `cond${folder.name}`;
           condBtn.onclick = async () => {
-            // Dacă div-ul este gol, încarcă condițiile
             const condDiv = document.getElementById(condDivId);
             if (!condDiv.dataset.loaded) {
-              await loadConditionContent(conditionFile.download_url, condDivId);
+              await loadMarkdownContent(conditionFile.download_url, condDivId);
               condDiv.dataset.loaded = "true";
             }
             toggleContent(condDivId);
@@ -185,8 +203,6 @@
         if (codeFile) {
           const codeBtn = document.createElement('button');
           codeBtn.textContent = "Arată codul sursă " + getFileIcon(codeFile.name);
-          const codeDivId = `code${folder.name}`;
-          // Deschide link-ul către GitHub la fișierul de cod
           codeBtn.onclick = () => {
             window.open(`${GITHUB_SOURCE_URL}/${folder.name}/${encodeURIComponent(codeFile.name)}`, '_blank');
           };
@@ -204,12 +220,11 @@
         
         problemDiv.appendChild(buttonsDiv);
         
-        // Div pentru condiții (markdown)
+        // Div pentru condiția problemei (markdown)
         if (conditionFile) {
           const condDiv = document.createElement('div');
           condDiv.className = 'toggle-content';
           condDiv.id = `cond${folder.name}`;
-          // Inițial, rămâne gol; va fi umplut când se apasă butonul
           problemDiv.appendChild(condDiv);
         }
         
@@ -220,7 +235,6 @@
           imgDiv.id = `img${folder.name}`;
           imageFiles.forEach(imageFile => {
             const imgElem = document.createElement('img');
-            // Folosim GitHub Pages URL pentru afișarea imaginilor
             imgElem.src = `${GITHUB_PAGES_URL}/${folder.name}/${encodeURIComponent(imageFile.name)}`;
             imgElem.alt = `Imagine Problema ${folder.name} - ${imageFile.name}`;
             imgDiv.appendChild(imgElem);
@@ -232,11 +246,18 @@
       }
     }
     
-    document.addEventListener('DOMContentLoaded', listProblems);
+    document.addEventListener('DOMContentLoaded', () => {
+      listProblems();
+    });
   </script>
 </head>
 <body>
   <h1>Laborator 1 - Probleme</h1>
+  <!-- Buton global pentru afișarea condiției din fișierul .md din același folder -->
+  <div class="global-condition">
+    <button onclick="toggleGlobalCondition()">Arată condiția 📘</button>
+    <div id="globalCondDiv" class="toggle-content"></div>
+  </div>
   <div id="problemsContainer">
     <p>Se încarcă problemele...</p>
   </div>
