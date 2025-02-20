@@ -26,19 +26,63 @@
       border-radius: 4px;
       overflow-x: auto;
     }
-    iframe.code {
-      width: 100%;
-      height: 300px;
-      border: 1px solid #aaa;
-      margin-top: 10px;
-    }
     .imagini img {
       max-width: 100%;
       height: auto;
       display: block;
       margin-top: 10px;
     }
+    .code-container {
+      margin-top: 10px;
+    }
+    .code-button {
+      background-color: #0366d6;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .code-button:hover {
+      background-color: #024ea4;
+    }
+    .code-content {
+      display: none;
+      background: #f6f8fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
   </style>
+  <script>
+    async function toggleCode(problemNumber) {
+      const codeContent = document.getElementById(`code-content-${problemNumber}`);
+      const btn = document.getElementById(`code-button-${problemNumber}`);
+      if (codeContent.style.display === 'none' || !codeContent.style.display) {
+        try {
+          // Dacă nu s-a încărcat încă codul, se face fetch
+          if (!codeContent.textContent) {
+            const response = await fetch(`${problemNumber}/program${problemNumber}.py`);
+            const codeText = await response.text();
+            codeContent.textContent = codeText;
+          }
+          codeContent.style.display = 'block';
+          btn.textContent = 'Ascunde codul';
+        } catch (err) {
+          console.error(err);
+          codeContent.textContent = 'Eroare la încărcarea codului.';
+          codeContent.style.display = 'block';
+        }
+      } else {
+        codeContent.style.display = 'none';
+        btn.textContent = 'Vezi codul sursă';
+      }
+    }
+  </script>
 </head>
 <body>
   <h1>Laborator 1 - Probleme</h1>
@@ -52,7 +96,10 @@
       La click pe al doilea buton, textul etichetei se va șterge.
     </p>
     <h3>Cod sursă - program1.py</h3>
-    <iframe class="code" src="1/program1.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-1" class="code-button" onclick="toggleCode(1)">Vezi codul sursă</button>
+      <pre id="code-content-1" class="code-content"></pre>
+    </div>
     <h3>Imagini</h3>
     <div class="imagini">
       <img src="1/1.png" alt="Imagine Problema 1 - 1">
@@ -69,7 +116,10 @@
       Aplicația va afișa numărul de vocale și numărul de consoane în etichetă.
     </p>
     <h3>Cod sursă - program2.py</h3>
-    <iframe class="code" src="2/program2.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-2" class="code-button" onclick="toggleCode(2)">Vezi codul sursă</button>
+      <pre id="code-content-2" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="2/1.png" alt="Imagine Problema 2">
@@ -86,7 +136,10 @@
       La click pe "Mai mare", dimensiunea textului etichetei se mărește cu 2 puncte, iar la click pe "Mai mic" scade cu 2 puncte.
     </p>
     <h3>Cod sursă - program3.py</h3>
-    <iframe class="code" src="3/program3.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-3" class="code-button" onclick="toggleCode(3)">Vezi codul sursă</button>
+      <pre id="code-content-3" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="3/1.png" alt="Imagine Problema 3">
@@ -102,7 +155,10 @@
       Creați o aplicație care conține o etichetă și în care, la mișcarea mouse-ului peste fereastră, se afișează coordonatele cursorului.
     </p>
     <h3>Cod sursă - program4.py</h3>
-    <iframe class="code" src="4/program4.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-4" class="code-button" onclick="toggleCode(4)">Vezi codul sursă</button>
+      <pre id="code-content-4" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="4/1.png" alt="Imagine Problema 4">
@@ -117,7 +173,10 @@
       Creați o aplicație cu două etichete: una afișează dimensiunile ferestrei, iar cealaltă starea butonului mouse-ului (apasat/ridicat).
     </p>
     <h3>Cod sursă - program5.py</h3>
-    <iframe class="code" src="5/program5.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-5" class="code-button" onclick="toggleCode(5)">Vezi codul sursă</button>
+      <pre id="code-content-5" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="5/1.png" alt="Imagine Problema 5">
@@ -132,7 +191,10 @@
       Creați o aplicație cu o etichetă care afișează, în funcție de poziția mouse-ului, dacă acesta se află pe fereastră sau nu.
     </p>
     <h3>Cod sursă - program6.py</h3>
-    <iframe class="code" src="6/program6.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-6" class="code-button" onclick="toggleCode(6)">Vezi codul sursă</button>
+      <pre id="code-content-6" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="6/1.png" alt="Imagine Problema 6">
@@ -147,7 +209,10 @@
       Elaborați o aplicație cu două etichete care își schimbă culoarea: eticheta cea mai apropiată de cursor va fi roșie.
     </p>
     <h3>Cod sursă - program7.py</h3>
-    <iframe class="code" src="7/program7.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-7" class="code-button" onclick="toggleCode(7)">Vezi codul sursă</button>
+      <pre id="code-content-7" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="7/1.png" alt="Imagine Problema 7">
@@ -163,7 +228,10 @@
       Textul din linia de editare se va schimba în funcție de butonul apăsat.
     </p>
     <h3>Cod sursă - program8.py</h3>
-    <iframe class="code" src="8/program8.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-8" class="code-button" onclick="toggleCode(8)">Vezi codul sursă</button>
+      <pre id="code-content-8" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="8/1.png" alt="Imagine Problema 8">
@@ -179,7 +247,10 @@
       Creați o aplicație care rezolvă inecuația de forma ax+b&gt;0, unde a și b sunt introduse de utilizator prin linii de editare.
     </p>
     <h3>Cod sursă - program9.py</h3>
-    <iframe class="code" src="9/program9.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-9" class="code-button" onclick="toggleCode(9)">Vezi codul sursă</button>
+      <pre id="code-content-9" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="9/1.png" alt="Imagine Problema 9">
@@ -195,7 +266,10 @@
       Creați o aplicație în care, la click pe buton, literele textului dintr-o linie de editare devin mari.
     </p>
     <h3>Cod sursă - program10.py</h3>
-    <iframe class="code" src="10/program10.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-10" class="code-button" onclick="toggleCode(10)">Vezi codul sursă</button>
+      <pre id="code-content-10" class="code-content"></pre>
+    </div>
     <h3>Imagini</h3>
     <div class="imagini">
       <img src="10/1.png" alt="Imagine Problema 10 - 1">
@@ -210,7 +284,10 @@
       Creați o aplicație în care, la click pe buton, se calculează pătratul numărului introdus într-o linie de editare.
     </p>
     <h3>Cod sursă - program11.py</h3>
-    <iframe class="code" src="11/program11.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-11" class="code-button" onclick="toggleCode(11)">Vezi codul sursă</button>
+      <pre id="code-content-11" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="11/1.png" alt="Imagine Problema 11">
@@ -229,7 +306,10 @@
       <li>Cel mai mare divizor propriu prim (dacă există).</li>
     </ul>
     <h3>Cod sursă - program12.py</h3>
-    <iframe class="code" src="12/program12.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-12" class="code-button" onclick="toggleCode(12)">Vezi codul sursă</button>
+      <pre id="code-content-12" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="12/1.png" alt="Imagine Problema 12">
@@ -243,7 +323,10 @@
       Creați o aplicație cu două casete de editare și un buton. La click, textul din prima casetă este „răsturnat” și afișat în cea de-a doua.
     </p>
     <h3>Cod sursă - program13.py</h3>
-    <iframe class="code" src="13/program13.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-13" class="code-button" onclick="toggleCode(13)">Vezi codul sursă</button>
+      <pre id="code-content-13" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="13/1.png" alt="Imagine Problema 13">
@@ -260,7 +343,10 @@
       <br>- Al treilea buton: aplicația se închide.
     </p>
     <h3>Cod sursă - program14.py</h3>
-    <iframe class="code" src="14/program14.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-14" class="code-button" onclick="toggleCode(14)">Vezi codul sursă</button>
+      <pre id="code-content-14" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="14/1.png" alt="Imagine Problema 14">
@@ -278,7 +364,10 @@
       <br>- Butonul 3 șterge textul din casetă.
     </p>
     <h3>Cod sursă - program15.py</h3>
-    <iframe class="code" src="15/program15.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-15" class="code-button" onclick="toggleCode(15)">Vezi codul sursă</button>
+      <pre id="code-content-15" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="15/1.png" alt="Imagine Problema 15">
@@ -295,10 +384,12 @@
       Aplicația calculează cu câți lei trebuie mărît prețul portocalelor rămase pentru a obține venitul preconizat.
     </p>
     <h3>Cod sursă - program16.py</h3>
-    <iframe class="code" src="16/program16.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-16" class="code-button" onclick="toggleCode(16)">Vezi codul sursă</button>
+      <pre id="code-content-16" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
-      <!-- Se va actualiza "XX" cu minutele exacte, dacă sunt disponibile -->
       <img src="16/1.png" alt="Imagine Problema 16">
       <img src="16/2.png" alt="Imagine Problema 16">
     </div>
@@ -312,7 +403,10 @@
       Exemple: m1 + m2, m1 + m2 + … + mn, m1 ± m2 ± … ± mn, m1 * m2 sau m1 / m2.
     </p>
     <h3>Cod sursă - program17.py</h3>
-    <iframe class="code" src="17/program17.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-17" class="code-button" onclick="toggleCode(17)">Vezi codul sursă</button>
+      <pre id="code-content-17" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="17/1.png" alt="Imagine Problema 17">
@@ -328,10 +422,12 @@
       Creați o aplicație care evaluează o expresie aritmetică (fără paranteze) scrisă într-o casetă de text.
     </p>
     <h3>Cod sursă - program18.py</h3>
-    <iframe class="code" src="18/program18.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-18" class="code-button" onclick="toggleCode(18)">Vezi codul sursă</button>
+      <pre id="code-content-18" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
-      <!-- Se va actualiza "XX" cu minutele exacte, dacă sunt disponibile -->
       <img src="18/1.png" alt="Imagine Problema 18">
     </div>
   </div>
@@ -343,10 +439,12 @@
       Creați o aplicație care evaluează o expresie aritmetică (cu sau fără paranteze) scrisă într-o casetă de text.
     </p>
     <h3>Cod sursă - program19.py</h3>
-    <iframe class="code" src="19/program19.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-19" class="code-button" onclick="toggleCode(19)">Vezi codul sursă</button>
+      <pre id="code-content-19" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
-      <!-- Se va actualiza "XX" cu minutele exacte, dacă sunt disponibile -->
       <img src="19/1.png" alt="Imagine Problema 19">
     </div>
   </div>
@@ -361,7 +459,10 @@
       <br>Aplicația afișează numărul de săptămână (1–53) corespunzător.
     </p>
     <h3>Cod sursă - program20.py</h3>
-    <iframe class="code" src="20/program20.py"></iframe>
+    <div class="code-container">
+      <button id="code-button-20" class="code-button" onclick="toggleCode(20)">Vezi codul sursă</button>
+      <pre id="code-content-20" class="code-content"></pre>
+    </div>
     <h3>Imagine</h3>
     <div class="imagini">
       <img src="20/1.png" alt="Imagine Problema 20">
