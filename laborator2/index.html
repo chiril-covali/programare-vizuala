@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Laborator 2 - Probleme</title>
+  <link rel="icon" type="image/x-icon" href="ico/favicon.ico">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f5f5;
+    }
+    .problem {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .imagini img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin-top: 10px;
+    }
+    .code-container {
+      margin-top: 10px;
+    }
+    .code-button {
+      background-color: #0366d6;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .code-button:hover {
+      background-color: #024ea4;
+    }
+    .code-content {
+      display: none;
+      background: #f6f8fa;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      margin-top: 10px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
+  <script>
+    async function toggleCode(problemNumber) {
+      const codeContent = document.getElementById(`code-content-${problemNumber}`);
+      const btn = document.getElementById(`code-button-${problemNumber}`);
+      if (codeContent.style.display === 'none' || !codeContent.style.display) {
+        try {
+          // Dacă nu s-a încărcat încă codul, se face fetch
+          if (!codeContent.textContent) {
+            const response = await fetch(`${problemNumber}/program${problemNumber}.py`);
+            const codeText = await response.text();
+            codeContent.textContent = codeText;
+          }
+          codeContent.style.display = 'block';
+          btn.textContent = 'Ascunde codul';
+        } catch (err) {
+          console.error(err);
+          codeContent.textContent = 'Eroare la încărcarea codului.';
+          codeContent.style.display = 'block';
+        }
+      } else {
+        codeContent.style.display = 'none';
+        btn.textContent = 'Vezi codul sursă';
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Laborator 2 - Probleme</h1>
+  
+  <!-- Problema 1 -->
+  <div class="problem">
+    <h2>Problema 1</h2>
+    <p>
+      Scrieți un program care convertește viteza vântului de la „metri pe secundă” la „kilometri pe oră”. 
+    </p>
+    <h3>Cod sursă - program1.py</h3>
+    <div class="code-container">
+      <button id="code-button-1" class="code-button" onclick="toggleCode(1)">Vezi codul sursă</button>
+      <pre id="code-content-1" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="1/1.png" alt="Imagine Problema 1 - Fig. 1.1">
+    </div>
+  </div>
+  
+  <!-- Problema 2 -->
+  <div class="problem">
+    <h2>Problema 2</h2>
+    <p>
+      Scrieți un program care convertește viteza vântului de la „metri pe secundă” la „kilometri pe oră”.
+      Programul trebuie conceput astfel încât utilizatorul 
+      să poată introduce numai un număr întreg pozitiv în câmpul Viteză.
+    </p>
+    <h3>Cod sursă - program2.py</h3>
+    <div class="code-container">
+      <button id="code-button-2" class="code-button" onclick="toggleCode(2)">Vezi codul sursă</button>
+      <pre id="code-content-2" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="2/1.png" alt="Imagine Problema 2 - Fig. 1.1">
+    </div>
+  </div>
+  
+  <!-- Problema 3 -->
+  <div class="problem">
+    <h2>Problema 3</h2>
+    <p>
+      Scrieți un program care convertește viteza vântului de la „metri pe secundă” la „kilometri pe oră”. 
+      Fereastra aplicației trebuie concepută astfel încât utilizatorul să poată introduce numai un număr întreg pozitiv 
+      în câmpul Viteză, iar calculul se efectuează atât la apăsarea butonului Recalculează, cât și la apăsarea tastei &lt;Enter&gt;.
+    </p>
+    <h3>Cod sursă - program3.py</h3>
+    <div class="code-container">
+      <button id="code-button-3" class="code-button" onclick="toggleCode(3)">Vezi codul sursă</button>
+      <pre id="code-content-3" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="3/1.png" alt="Imagine Problema 3">
+    </div>
+  </div>
+  
+  <!-- Problema 4 -->
+  <div class="problem">
+    <h2>Problema 4</h2>
+    <p>
+      Scrieți un program care convertește masa din livre în kilograme (1 livră = 409,5 grame). 
+      Programul trebuie conceput astfel încât butonul Recalculare 
+      să fie disponibil numai atunci când utilizatorul a introdus datele brute.
+    </p>
+    <h3>Cod sursă - program4.py</h3>
+    <div class="code-container">
+      <button id="code-button-4" class="code-button" onclick="toggleCode(4)">Vezi codul sursă</button>
+      <pre id="code-content-4" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="4/1.png" alt="Imagine Problema 4 - Fig. 1.2">
+    </div>
+  </div>
+  
+  <!-- Problema 5 -->
+  <div class="problem">
+    <h2>Problema 5</h2>
+    <p>
+      Scrieți un program care convertește masa din lire în kilograme (1 liră = 409,5 grame). 
+      Programul trebuie conceput astfel încât utilizatorul să poată introduce 
+      numai un număr pozitiv (întreg sau fracționar) în câmpul Masa.
+    </p>
+    <h3>Cod sursă - program5.py</h3>
+    <div class="code-container">
+      <button id="code-button-5" class="code-button" onclick="toggleCode(5)">Vezi codul sursă</button>
+      <pre id="code-content-5" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="5/1.png" alt="Imagine Problema 5 - Fig. 1.2">
+    </div>
+  </div>
+  
+  <!-- Problema 6 -->
+  <div class="problem">
+    <h2>Problema 6</h2>
+    <p>
+      Scrieți un program care să calculeze viteza (km/oră) cu care alergătorul a parcurs distanța. 
+      Numărul de minute este setat ca număr întreg, iar secunde ca număr fracționar.
+    </p>
+    <h3>Cod sursă - program6.py</h3>
+    <div class="code-container">
+      <button id="code-button-6" class="code-button" onclick="toggleCode(6)">Vezi codul sursă</button>
+      <pre id="code-content-6" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="6/1.png" alt="Imagine Problema 6 - Fig. 1.3">
+    </div>
+  </div>
+  
+  <!-- Problema 7 -->
+  <div class="problem">
+    <h2>Problema 7</h2>
+    <p>
+      Scrieți un program care să calculeze rezistența curentului într-un circuit electric. 
+      Programul trebuie să fie conceput astfel încât 
+      butonul Calculare să fie disponibil numai atunci când utilizatorul a introdus o valoare a rezistenței.
+    </p>
+    <h3>Cod sursă - program7.py</h3>
+    <div class="code-container">
+      <button id="code-button-7" class="code-button" onclick="toggleCode(7)">Vezi codul sursă</button>
+      <pre id="code-content-7" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="7/1.png" alt="Imagine Problema 7 - Fig. 1.4">
+    </div>
+  </div>
+  
+  <!-- Problema 8 -->
+  <div class="problem">
+    <h2>Problema 8</h2>
+    <p>
+      Scrieți un program care să calculeze curentul într-un circuit electric format din două rezistențe conectate în paralel. 
+    </p>
+    <h3>Cod sursă - program8.py</h3>
+    <div class="code-container">
+      <button id="code-button-8" class="code-button" onclick="toggleCode(8)">Vezi codul sursă</button>
+      <pre id="code-content-8" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="8/1.png" alt="Imagine Problema 8 - Fig. 1.5">
+    </div>
+  </div>
+  
+  <!-- Problema 9 -->
+  <div class="problem">
+    <h2>Problema 9</h2>
+    <p>
+      Scrieți un program care să calculeze prețul de cumpărare cu o reducere. 
+      Se acordă o reducere de 1% dacă suma de cumpărare este mai mare de 300 de ruble, 2% - dacă suma este mai mare de 500 de ruble, 
+      3% - dacă suma este mai mare de 1 000. Informațiile despre reducere (procent și valoare) ar trebui să fie afișate într-o 
+      casetă de dialog.
+    </p>
+    <h3>Cod sursă - program9.py</h3>
+    <div class="code-container">
+      <button id="code-button-9" class="code-button" onclick="toggleCode(9)">Vezi codul sursă</button>
+      <pre id="code-content-9" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="9/1.png" alt="Imagine Problema 9 - Fig. 1.6">
+    </div>
+  </div>
+  
+  <!-- Problema 10 -->
+  <div class="problem">
+    <h2>Problema 10</h2>
+    <p>
+      Scrieți un program care să calculeze costul unei achiziții. Utilizatorul trebuie să introducă codul produsului și numărul 
+      de unități. Programul trebuie să genereze o listă de produse.
+      (Dezvoltare. Lista de coduri, denumiri și prețuri se vor introduce dintr-un fișier.)
+    </p>
+    <h3>Cod sursă - program10.py</h3>
+    <div class="code-container">
+      <button id="code-button-10" class="code-button" onclick="toggleCode(10)">Vezi codul sursă</button>
+      <pre id="code-content-10" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="10/1.png" alt="Imagine Problema 10 - Fig. 1.7">
+    </div>
+  </div>
+  
+  <!-- Problema 11 -->
+  <div class="problem">
+    <h2>Problema 11</h2>
+    <p>
+      Scrieți un program care să calculeze randamentul unui depozit. Programul trebuie să permită calcularea dobânzii simple și 
+      compuse. Dobânda simplă se calculează la sfârșitul perioadei, iar dobânda compusă se calculează lunar, adăugându-se la suma 
+      inițială pentru calculul lunii următoare.
+    </p>
+    <h3>Cod sursă - program11.py</h3>
+    <div class="code-container">
+      <button id="code-button-11" class="code-button" onclick="toggleCode(11)">Vezi codul sursă</button>
+      <pre id="code-content-11" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="11/1.png" alt="Imagine Problema 11 - Fig. 1.8">
+    </div>
+  </div>
+  
+  <!-- Problema 12 -->
+  <div class="problem">
+    <h2>Problema 12</h2>
+    <p>
+      Scrieți un program care să calculeze rezistența unui circuit electric format din două rezistențe. 
+      Rezistențele pot fi conectate în serie sau în paralel.
+      Dacă rezistența circuitului depășește 1 000 ohmi, rezultatul trebuie afișat în kiloohmi.
+    </p>
+    <h3>Cod sursă - program12.py</h3>
+    <div class="code-container">
+      <button id="code-button-12" class="code-button" onclick="toggleCode(12)">Vezi codul sursă</button>
+      <pre id="code-content-12" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="12/1.png" alt="Imagine Problema 12 - Fig. 1.9">
+    </div>
+  </div>
+  
+  <!-- Problema 13 -->
+  <div class="problem">
+    <h2>Problema 13</h2>
+    <p>
+      Scrieți un program care să calculeze curentul într-un circuit electric compus din două rezistențe. 
+      Rezistențele pot fi conectate fie în serie, fie în paralel.
+    </p>
+    <h3>Cod sursă - program13.py</h3>
+    <div class="code-container">
+      <button id="code-button-13" class="code-button" onclick="toggleCode(13)">Vezi codul sursă</button>
+      <pre id="code-content-13" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="13/1.png" alt="Imagine Problema 13 - Fig. 1.10">
+    </div>
+  </div>
+  
+  <!-- Problema 14 -->
+  <div class="problem">
+    <h2>Problema 14</h2>
+    <p>
+      Scrieți un program care, folosind legea lui Ohm, calculează curentul, tensiunea sau rezistența unui circuit electric. 
+      În timpul rulării programului, textul explicativ al câmpurilor de intrare 
+      se va schimba ca urmare a selectării comutatorului Curent, Tensiune sau Rezistență.
+    </p>
+    <h3>Cod sursă - program14.py</h3>
+    <div class="code-container">
+      <button id="code-button-14" class="code-button" onclick="toggleCode(14)">Vezi codul sursă</button>
+      <pre id="code-content-14" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="14/1.png" alt="Imagine Problema 14 - Fig. 1.11">
+    </div>
+  </div>
+  
+  <!-- Problema 15 -->
+  <div class="problem">
+    <h2>Problema 15</h2>
+    <p>
+      Scrieți un program care să calculeze costul unei călătorii cu mașina, de exemplu până la casa părintească. 
+    </p>
+    <h3>Cod sursă - program15.py</h3>
+    <div class="code-container">
+      <button id="code-button-15" class="code-button" onclick="toggleCode(15)">Vezi codul sursă</button>
+      <pre id="code-content-15" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="15/1.png" alt="Imagine Problema 15 - Fig. 1.12">
+    </div>
+  </div>
+  
+  <!-- Problema 16 -->
+  <div class="problem">
+    <h2>Problema 16</h2>
+    <p>
+      Scrieți un program de calculator care să efectueze adunări și scăderi. 
+      Există două variante de rezolvare a acestei sarcini: 
+      în prima variantă, se creează o procedură separată de gestionare a evenimentului onclick pentru fiecare buton numeric; 
+      în a doua variantă, evenimentul onclick al tuturor butoanelor numerice este gestionat de o singură procedură, 
+      reducând semnificativ textul programului.
+    </p>
+    <h3>Cod sursă - program16.py</h3>
+    <div class="code-container">
+      <button id="code-button-16" class="code-button" onclick="toggleCode(16)">Vezi codul sursă</button>
+      <pre id="code-content-16" class="code-content"></pre>
+    </div>
+    <h3>Imagine</h3>
+    <div class="imagini">
+      <img src="16/1.png" alt="Imagine Problema 16 - Fig. 1.13">
+      <img src="16/2.png" alt="Imagine Problema 16 - Fig. 1.13">
+    </div>
+  </div>
+  
+</body>
+</html>
