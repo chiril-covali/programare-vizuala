@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laborator 4 - Canva și elemente grafice</title>
+    <link rel="icon" type="image/x-icon" href="../ico/favicon.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .task {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .task h2 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        .task p {
+            margin: 10px 0;
+            color: #333;
+        }
+        .task img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .code-container {
+            margin-top: 10px;
+        }
+        .code-button {
+            background-color: #0366d6;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .code-button:hover {
+            background-color: #024ea4;
+        }
+        .code-content {
+            display: none;
+            background: #f6f8fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+    <script>
+        async function toggleCode(problemNumber) {
+            const codeContent = document.getElementById(`code-content-${problemNumber}`);
+            const btn = document.getElementById(`code-button-${problemNumber}`);
+            
+            if (codeContent.style.display === 'none' || !codeContent.style.display) {
+                try {
+                    const response = await fetch(`${problemNumber}/program${problemNumber}.py`);
+                    const code = await response.text();
+                    codeContent.textContent = code;
+                    codeContent.style.display = 'block';
+                    btn.textContent = 'Ascunde codul sursă';
+                } catch (error) {
+                    console.error('Error loading code:', error);
+                }
+            } else {
+                codeContent.style.display = 'none';
+                btn.textContent = 'Vezi codul sursă';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Laborator 4 - Canva și elemente grafice</h1>
+
+    <div class="task">
+        <h2>23. Drapel olimpic</h2>
+        <p>Program care desenează un drapel olimpic pe suprafața unei forme.</p>
+        <div class="code-container">
+            <button id="code-button-23" class="code-button" onclick="toggleCode(23)">Vezi codul sursă</button>
+            <pre id="code-content-23" class="code-content"></pre>
+        </div>
+        <img src="23/1.png" alt="Drapel olimpic">
+    </div>
+
+    <div class="task">
+        <h2>24. Drapelul Republicii Moldova</h2>
+        <p>Program care desenează drapelul Republicii Moldova pe suprafața formularului.</p>
+        <div class="code-container">
+            <button id="code-button-24" class="code-button" onclick="toggleCode(24)">Vezi codul sursă</button>
+            <pre id="code-content-24" class="code-content"></pre>
+        </div>
+        <img src="24/1.png" alt="Drapelul Republicii Moldova">
+    </div>
+
+    <div class="task">
+        <h2>25. Stea cu cinci vârfuri</h2>
+        <p>Program care desenează conturul unei stele cu cinci vârfuri în caseta de dialog în punctul în care se face clic pe butonul mouse-ului.</p>
+        <div class="code-container">
+            <button id="code-button-25" class="code-button" onclick="toggleCode(25)">Vezi codul sursă</button>
+            <pre id="code-content-25" class="code-content"></pre>
+        </div>
+        <img src="25/1.png" alt="Stea cu cinci vârfuri">
+    </div>
+
+    <div class="task">
+        <h2>26. Prinde 10 fețe zâmbitoare</h2>
+        <p>Program care mută aleatoriu imaginea unei fețe amuzante pe care utilizatorul trebuie să facă clic. Programul se încheie după 10 clicuri reușite.</p>
+        <div class="code-container">
+            <button id="code-button-26" class="code-button" onclick="toggleCode(26)">Vezi codul sursă</button>
+            <pre id="code-content-26" class="code-content"></pre>
+        </div>
+        <img src="26/1.png" alt="Prinde 10 fețe zâmbitoare">
+    </div>
+
+    <div class="task">
+        <h2>27. Curba Hilbert</h2>
+        <p>Program care desenează o curbă Hilbert pe o suprafață de formă. O curbă Hilbert constă din patru elemente legate prin linii drepte.</p>
+        <div class="code-container">
+            <button id="code-button-27" class="code-button" onclick="toggleCode(27)">Vezi codul sursă</button>
+            <pre id="code-content-27" class="code-content"></pre>
+        </div>
+        <img src="27/1.png" alt="Curba Hilbert">
+        <img src="27/2.png" alt="Curbă Hilbert de ordinul cinci">
+    </div>
+
+    <div class="task">
+        <h2>28. Rețea de coordonate</h2>
+        <p>Program care afișează imaginea unei grile de coordonate digitalizate pe suprafața formularului.</p>
+        <div class="code-container">
+            <button id="code-button-28" class="code-button" onclick="toggleCode(28)">Vezi codul sursă</button>
+            <pre id="code-content-28" class="code-content"></pre>
+        </div>
+        <img src="28/1.png" alt="Rețea de coordonate">
+    </div>
+
+    <div class="task">
+        <h2>29. Grafic de funcție</h2>
+        <p>Program care trasează graficul funcției 2*Sin(x)*exp(x/5) pe suprafața unui formular.</p>
+        <div class="code-container">
+            <button id="code-button-29" class="code-button" onclick="toggleCode(29)">Vezi codul sursă</button>
+            <pre id="code-content-29" class="code-content"></pre>
+        </div>
+        <img src="29/1.png" alt="Grafic de funcție">
+    </div>
+
+    <div class="task">
+        <h2>30. Histogramă</h2>
+        <p>Program care afișează o histogramă pentru rezultatele unui test.</p>
+        <div class="code-container">
+            <button id="code-button-30" class="code-button" onclick="toggleCode(30)">Vezi codul sursă</button>
+            <pre id="code-content-30" class="code-content"></pre>
+        </div>
+        <img src="30/1.png" alt="Histogramă">
+    </div>
+
+    <div class="task">
+        <h2>33. Animație cu navă</h2>
+        <p>Program care deplasează o navă pe suprafața ferestrei, simulând navigarea pe mare.</p>
+        <div class="code-container">
+            <button id="code-button-33" class="code-button" onclick="toggleCode(33)">Vezi codul sursă</button>
+            <pre id="code-content-33" class="code-content"></pre>
+        </div>
+        <img src="33/1.png" alt="Navă">
+        <img src="33/2.png" alt="Animație navă">
+    </div>
+
+    <div class="task">
+        <h2>34. Ceas analogic în formular</h2>
+        <p>Program care afișează un ceas analogic funcțional cu arătătoare pentru ore, minute și secunde pe suprafața unui formular.</p>
+        <div class="code-container">
+            <button id="code-button-34" class="code-button" onclick="toggleCode(34)">Vezi codul sursă</button>
+            <pre id="code-content-34" class="code-content"></pre>
+        </div>
+        <img src="34/1.png" alt="Ceas analogic în formular">
+    </div>
+
+    <div class="task">
+        <h2>35. Ceas analogic în dialog</h2>
+        <p>Program care afișează un ceas analogic funcțional într-o casetă de dialog.</p>
+        <div class="code-container">
+            <button id="code-button-35" class="code-button" onclick="toggleCode(35)">Vezi codul sursă</button>
+            <pre id="code-content-35" class="code-content"></pre>
+        </div>
+        <img src="35/1.png" alt="Ceas analogic în dialog">
+    </div>
+
+    <div class="task">
+        <h2>36. Animație cu avion</h2>
+        <p>Program care animează un avion survolând orașul, folosind imagini încărcate din fișiere.</p>
+        <div class="code-container">
+            <button id="code-button-36" class="code-button" onclick="toggleCode(36)">Vezi codul sursă</button>
+            <pre id="code-content-36" class="code-content"></pre>
+        </div>
+        <img src="36/1.png" alt="Avion survolând orașul">
+        <img src="36/2.png" alt="Obiectul și imaginea de fundal">
+    </div>
+
+    <div class="task">
+        <h2>37. Animație din fișier BMP</h2>
+        <p>Program care afișează un "desen animat" încărcat dintr-un fișier BMP.</p>
+        <div class="code-container">
+            <button id="code-button-37" class="code-button" onclick="toggleCode(37)">Vezi codul sursă</button>
+            <pre id="code-content-37" class="code-content"></pre>
+        </div>
+        <img src="37/1.png" alt="Formular aplicație">
+        <img src="37/2.png" alt="Exemplu desen animat">
+    </div>
+
+    <div class="task">
+        <h2>40. Vizualizator de imagini</h2>
+        <p>Program pentru vizualizarea ilustrațiilor dintr-un director al calculatorului.</p>
+        <div class="code-container">
+            <button id="code-button-40" class="code-button" onclick="toggleCode(40)">Vezi codul sursă</button>
+            <pre id="code-content-40" class="code-content"></pre>
+        </div>
+        <img src="40/1.png" alt="Vizualizator de imagini">
+    </div>
+</body>
+</html>
