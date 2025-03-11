@@ -62,23 +62,19 @@
         }
     </style>
     <script>
-        async function toggleCode(taskNumber) {
-            const codeContent = document.getElementById(`code-content-${taskNumber}`);
-            const btn = document.getElementById(`code-button-${taskNumber}`);
+        async function toggleCode(problemNumber) {
+            const codeContent = document.getElementById(`code-content-${problemNumber}`);
+            const btn = document.getElementById(`code-button-${problemNumber}`);
+            
             if (codeContent.style.display === 'none' || !codeContent.style.display) {
                 try {
-                    // Dacă nu s-a încărcat încă codul, se face fetch
-                    if (!codeContent.textContent) {
-                        const response = await fetch(`data/program${taskNumber}.py`);
-                        const codeText = await response.text();
-                        codeContent.textContent = codeText;
-                    }
+                    const response = await fetch(`${problemNumber}/program${problemNumber}.py`);
+                    const code = await response.text();
+                    codeContent.textContent = code;
                     codeContent.style.display = 'block';
-                    btn.textContent = 'Ascunde codul';
-                } catch (err) {
-                    console.error(err);
-                    codeContent.textContent = 'Eroare la încărcarea codului.';
-                    codeContent.style.display = 'block';
+                    btn.textContent = 'Ascunde codul sursă';
+                } catch (error) {
+                    console.error('Error loading code:', error);
                 }
             } else {
                 codeContent.style.display = 'none';
