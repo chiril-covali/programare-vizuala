@@ -1,0 +1,6 @@
+Care este capitala României?
+A: București
+B: Cluj
+C: Timișoara
+D: Iași
+Raspuns corect: A
